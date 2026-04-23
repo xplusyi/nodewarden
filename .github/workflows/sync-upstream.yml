@@ -9,6 +9,8 @@ on:
         description: 'Commit hash (leave blank to use latest commit)'
         required: false
         type: string
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 permissions:
   contents: write
@@ -29,7 +31,7 @@ jobs:
       - name: Add upstream
         run: |
           git remote add upstream https://github.com/shuaiplus/NodeWarden.git || true
-          git fetch upstream --tags
+          git fetch upstream --tags --force
 
       - name: Resolve target commit
         id: resolve
