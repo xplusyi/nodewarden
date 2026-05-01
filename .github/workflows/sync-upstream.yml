@@ -2,7 +2,7 @@ name: Sync upstream
 
 on:
   schedule:
-    - cron: "0 3 * * *"
+    - cron: "0 11 * * *"
   workflow_dispatch:
     inputs:
       target_commit:
@@ -29,7 +29,7 @@ jobs:
       - name: Add upstream
         run: |
           git remote add upstream https://github.com/shuaiplus/NodeWarden.git || true
-          git fetch upstream --tags
+          git fetch upstream --tags --force
 
       - name: Resolve target commit
         id: resolve
