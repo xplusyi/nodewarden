@@ -2,7 +2,7 @@ name: Sync upstream
 
 on:
   schedule:
-    - cron: "0 3 * * *"
+    - cron: "0 12 * * *"
   workflow_dispatch:
     inputs:
       target_commit:
@@ -20,6 +20,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.PAT }}  # <--- 加上这一行，使用高权限token同步 .github 文件夹
 
       - name: Configure git
         run: |
@@ -29,7 +30,7 @@ jobs:
       - name: Add upstream
         run: |
           git remote add upstream https://github.com/shuaiplus/NodeWarden.git || true
-          git fetch upstream --tags
+          git fetch upstream --tags --force
 
       - name: Resolve target commit
         id: resolve
